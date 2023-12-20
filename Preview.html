@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="main.css">
+    <!-- VUE JS -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <script src="print.min.js"></script>
+    <style>
+        .w-fit {
+            width: fit-content !important;
+        }
+
+
+        @media print {
+
+            .p-hide {
+                visibility: hidden !important;
+            }
+        }
+
+        @page {
+            margin: 0 !important;
+        }
+
+        /* @media (max-width:500px) {
+            .img {
+                width: 100vw !important;
+            }
+
+
+        } */
+
+        .pot {
+            max-width: 100% !important;
+            max-height: 100% !important;
+             width: auto !important;
+             height: auto !important;
+             border-radius: 20px !important;
+           
+        }
+
+        .logo1 {
+            position: absolute;
+            bottom: 1rem;
+            right: 0;
+        }
+
+        .tool {
+            top: 5rem;
+        }
+
+        .fine-nav{
+            background-color: #2C256D !important;
+            width: 550px !important;
+            height: 140px !important;
+            border-radius: 20px;
+           
+
+        }
+
+        .bg-dark-blue{
+            
+            background-color: #2C256D !important;
+        }
+
+        .fine-icon{   
+            /* width: 50px;
+            height: 50px; */
+
+            width: 24px;
+            height: 24px;
+
+
+        }
+        .fine-image{
+            border-radius: 20px !important;
+        }
+       
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body id="app" class="position-relative">
+
+    <!-- <div>
+        <section class="pot d-flex justify-content-center align-items-center">
+
+            <div
+                class="position-relative rounded w-fit mx-auto my-1 d-flex flex-column justify-content-center align-items-center gap-3">
+                <img :src="image" alt="img" class="img-fluid fine-image">
+                <img src="./assets/Fine-logo.png" alt="" class="logo1 img-fluid" width="100">
+            </div>
+        </section>
+    
+        <div
+            class="fine-nav  position-relative  mx-auto d-flex justify-content-around align-items-center gap-4 ">
+            <a @click="back"><img class="fine-icon" src="./assets/Retake-Photo.png" alt="back"></a>
+            <a @click="goPrint" ><img class="fine-icon" src="./assets/Print.png" alt="back"></a>
+            <a @click="share" ><img class="fine-icon" src="./assets/Share.png" alt="back"></a>
+        </div>
+
+    </div> -->
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-5">
+                <aside class="d-flex justify-content-center align-items-center flex-column gap-3">
+                    <div class="w-100 position-relative">
+                        <div class="ratio ratio-10x15">
+                            <img :src="image" alt="selfie" class="object-fit-cover rounded">
+                        </div>
+                        <img src="/fine-logo-white.png" alt="" class="logo1 img-fluid" width="100">
+                    </div>
+                    <div class="bg-dark-blue w-100 rounded p-3 d-flex justify-content-around gap-3 align-items-center">
+                        <a href="/"><img class="fine-icon" src="./assets/Retake-Photo.png" alt="back"></a>
+                        <a @click="goPrint" ><img class="fine-icon" src="./assets/Print.png" alt="back"></a>
+                        <a @click="share" ><img class="fine-icon" src="./assets/Share.png" alt="back"></a>
+                    </div>
+                    
+                </aside>
+            </div>
+        </div>
+    </div>
+    
+    <spinner :spin="spinner">
+        <h3 class="fs-5 text-dark"> Sending to {{email}} </h3>
+    </spinner>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+
+                    api: 'https://script.google.com/macros/s/AKfycbz34HP4dcHqCUqAiCqAn22CFjeUVV1bo3U95611CVVvNdPE2YwcSQ4RewVn3m-bZhym/exec?submit=1',
+                    company: 'Fine',
+                    image: '',
+                    email: '',
+                    name: '',
+                    number: '',
+                    spinner: false
+                }
+            },
+            methods: {
+                back() {
+
+                    location.href = 'index.html'
+                },
+
+                // share() {
+                //     this.spinner = true
+                //     fetch(this.api, {
+                //         method: "POST",
+                //         headers: {
+                //             "Content-Type": "text/plain",
+                //         },
+                //         body: JSON.stringify({
+                //             name: this.name,
+                //             email: this.email,
+                //             number: this.number,
+                //             imageURI: this.image
+
+                //         })
+                //     })
+                //         .then((res) => res.json())
+                //         .then((res) => {
+                //             if (res == "200") {
+                //                 alert('تم ارسال الصور بنجاح ، الرجاء التحقق من بريدك')
+                //                 this.spinner = false;
+                //                 location.href = '/'
+                //             } else {
+                //                 alert('Invalid Email Address')
+                //                 this.spinner = false;
+                //                 location.href = '/'
+                //             }
+                //         }).catch(e => {
+                //             alert('شبكة ضعيفة الرجاء المحاولة مجددا')
+                //             console.log(e)
+
+                //             this.spinner = false;
+                //             location.href = '/'
+                //         })
+
+
+                // },
+                
+                goPrint() {
+                    window.print()
+                    // location.href = '/'
+                },
+
+                
+        share() {
+            this.spinner = true
+            fetch(this.api, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain",
+                },
+                body: JSON.stringify({
+                    name: this.name,
+                    email: this.email,
+                    number: this.number,
+                    src64: this.image
+
+                })
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.status) {
+                        alert('تم ارسال الصور بنجاح ، الرجاء التحقق من بريدك')
+                        this.spinner = false;
+                        location.reload()
+                    } else {
+                        alert('Invalid Email Address')
+                        this.spinner = false;
+                        location.reload()
+                    }
+                }).catch(e => {
+                    alert('شبكة ضعيفة الرجاء المحاولة مجددا')
+                    console.log(e)
+
+                    this.spinner = false;
+                    location.reload()
+                })
+
+
+        },
+            },
+            mounted() {
+
+                console.log(sessionStorage.getItem('img'))
+                this.image = sessionStorage.getItem('img')
+                this.name = sessionStorage.getItem('name')
+                this.email = sessionStorage.getItem('email')
+                this.number = sessionStorage.getItem('number')
+                // console.log(this.api)
+
+            }
+        })
+
+        app.component('spinner', {
+            template:
+                /*html*/
+                `
+    
+                <section v-if="spin" class="z-200 w-100 h-100 bg-glass position-fixed top-0 start-0 d-flex justify-content-center align-items-center">
+                    <div class="w-50 h-25 p-3 d-flex justify-content-center align-items-center flex-column gap-3">
+                        <div class="spinner-grow text-light-green" role="status"></div>
+                        <slot></slot>
+                    </div>
+                </section>
+                `,
+            props: ['spin', 'dir']
+        })
+        app.mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+{
+    "name": "Fine Photobooth",
+    "short_name": "Fine Photobooth",
+    "theme_color": "#2C256D",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "icons": [
+        {
+            "src": "./assets/Fine-logo.png",
+            "sizes": "71x71"
+        }
+    ]
+}
